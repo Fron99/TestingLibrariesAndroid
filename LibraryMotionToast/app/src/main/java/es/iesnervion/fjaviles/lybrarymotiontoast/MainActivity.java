@@ -39,46 +39,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NotNull AnimatedBottomBar.Tab tab1) {
 
+                Class classExtracted = Fragment_optionsOne.class;
+
                 switch (bottomBar.getSelectedIndex()){
 
-                    case 0:
+                    case 0: classExtracted = Fragment_optionsOne.class; break;
 
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentOptions, Fragment_optionsOne.class, null)
-                                .commit();
+                    case 1: classExtracted = Fragment_optionsTwo.class; break;
 
-                        break;
+                    case 2: classExtracted = Fragment_optionsThree.class; break;
 
-                    case 1:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentOptions, Fragment_optionsTwo.class, null)
-                                .commit();
-
-                        break;
-
-                    case 2:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentOptions, Fragment_optionsThree.class, null)
-                                .commit();
-
-                        break;
-
-                    case 3:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentOptions, Fragment_optionsFour.class, null)
-                                .commit();
-
-                        break;
-
+                    case 3: classExtracted = Fragment_optionsFour.class; break;
                 }
 
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentOptions, classExtracted, null)
+                        .commit();
             }
 
             @Override
@@ -91,30 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void chargeDefaultFragment(){
 
+        Class classExtracted = Fragment_optionsOne.class;
+
         switch (bottomBar.getSelectedIndex()){
 
-            case 0:
-                getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .replace(R.id.fragmentOptions, Fragment_optionsOne.class, null).commit();
-                break;
-            case 1:
-                getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .replace(R.id.fragmentOptions, Fragment_optionsTwo.class, null).commit();
-                break;
-            case 2:
-                getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .replace(R.id.fragmentOptions, Fragment_optionsThree.class, null).commit();
-                break;
-            case 3:
-                getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .replace(R.id.fragmentOptions, Fragment_optionsFour.class, null).commit();
-                break;
+            case 0: classExtracted = Fragment_optionsOne.class; break;
+
+            case 1: classExtracted = Fragment_optionsTwo.class; break;
+
+            case 2: classExtracted = Fragment_optionsThree.class; break;
+
+            case 3: classExtracted = Fragment_optionsFour.class; break;
         }
 
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmentOptions, classExtracted, null)
+                .commit();
     }
 
 
