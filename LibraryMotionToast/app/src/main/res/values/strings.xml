@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LybraryMotionToast</string>
+    <string name="opOne">Motion Toast</string>
+    <string name="opTwo">Color Motion Toast</string>
+    <string name="opThree">Dark Toast</string>
+    <string name="opFour">Dark Color Toast</string>
+    <string name="hello_blank_fragment">Preview - Motion Toast </string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
+    <string name="warning">Warning</string>
+    <string name="info">Info</string>
+    <string name="motion_toast">Motion Toast</string>
+    <string name="color_motion_toast">Color Motion Toast</string>
+    <string name="dark_toast">Dark Toast</string>
+    <string name="dark_color_toast">Dark Color Toast</string>
+    <string name="delete">delete</string>
+</resources>

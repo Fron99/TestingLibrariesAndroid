@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_one"
+        android:icon="@drawable/looks_one_black_24dp"
+        android:title="@string/opOne" />
+    <item
+        android:id="@+id/tab_two"
+        android:icon="@drawable/looks_two_black_24dp"
+        android:title="@string/opTwo" />
+
+    <item
+        android:id="@+id/tab_three"
+        android:icon="@drawable/looks_3_black_24dp"
+        android:title="@string/opThree" />
+
+    <item
+        android:id="@+id/tab_four"
+        android:icon="@drawable/looks_4_black_24dp"
+        android:title="@string/opFour" />
+
+</menu>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LibraryAnimatedBottomBar</string>
+    <string name="home">Home</string>
+    <string name="person">Person</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Detalles persona</string>
+    <string name="hello_blank_fragment1">Cosas de la casa</string>
+</resources>
