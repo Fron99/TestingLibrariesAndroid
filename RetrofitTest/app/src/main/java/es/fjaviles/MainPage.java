@@ -6,9 +6,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
+import android.view.View;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
+import es.fjaviles.Fragments.FragmentCreatePerson;
 import es.fjaviles.Fragments.FragmentDetailsPersons;
 import es.fjaviles.Fragments.FragmentListPersons;
 import es.fjaviles.Utils.DialogLoading;
@@ -53,6 +58,16 @@ public class MainPage extends AppCompatActivity {
                                 .addToBackStack("FragmentDetailsPersons")
                                 .replace(R.id.fragmentTotal, FragmentDetailsPersons.class, null)
                                 .commit();
+
+                        break;
+
+                    case "FragmentCreatePerson":
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .addToBackStack("FragmentCreatePerson")
+                                .replace(R.id.fragmentTotal, FragmentCreatePerson.class, null)
+                                .commit();
+
                         break;
 
                 }

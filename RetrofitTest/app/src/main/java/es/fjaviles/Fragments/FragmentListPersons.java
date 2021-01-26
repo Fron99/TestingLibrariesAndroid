@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 import es.fjaviles.Adapters.CustomAdapter;
@@ -31,6 +33,7 @@ public class FragmentListPersons extends Fragment {
 
     private ViewModelMainPage VMMainPage;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton btnAddPerson;
 
     public FragmentListPersons() {
 
@@ -62,7 +65,16 @@ public class FragmentListPersons extends Fragment {
         CustomAdapter adapter = new CustomAdapter(VMMainPage.getPersons());
         RecyclerView list = view.findViewById(R.id.recycledView);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+
+        btnAddPerson = view.findViewById(R.id.fab);
+
+        btnAddPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VMMainPage.changeFragmentSelected("FragmentCreatePerson");
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
