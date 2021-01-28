@@ -4,6 +4,8 @@ package es.fjaviles.ApiRest.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 public class Person {
 
     @SerializedName("Id")
@@ -32,8 +34,27 @@ public class Person {
     private int idDepartamento;
 
     public Person(){
+        id = 1;
         nombre = "pepe";
         apellidos = "jose";
+        fechaNacimiento = "2020-12-21";
+        foto = "";
+        direccion = "Mi casa";
+        telefono = "6541223654";
+        idDepartamento = 2;
+
+    }
+
+    public Person(int id, String nombre, String apellidos, String fechaNacimiento, String foto, String direccion, String telefono, int idDepartamento){
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
+        this.foto = foto;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.idDepartamento = idDepartamento;
+
     }
 
     public int getId() {
@@ -139,5 +160,6 @@ public class Person {
         this.idDepartamento = idDepartamento;
         return this;
     }
+
 
 }

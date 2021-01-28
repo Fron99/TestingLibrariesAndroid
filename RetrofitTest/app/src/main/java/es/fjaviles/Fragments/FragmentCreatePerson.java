@@ -2,48 +2,43 @@ package es.fjaviles.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import es.fjaviles.ApiRest.ApiAdapter;
+import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
+import es.fjaviles.Utils.DialogLoading;
+import es.fjaviles.ViewModels.ViewModelMainPage;
+import es.fjaviles.databinding.FragmentCreatePersonBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import www.sanju.motiontoast.MotionToast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentCreatePerson#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentCreatePerson extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private DialogLoading dialogLoading;
+    private ViewModelMainPage VMMainPage;
+    private FragmentCreatePersonBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentCreatePerson() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentCreatePerson.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentCreatePerson newInstance(String param1, String param2) {
         FragmentCreatePerson fragment = new FragmentCreatePerson();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +46,80 @@ public class FragmentCreatePerson extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_person, container, false);
+        binding = FragmentCreatePersonBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
+        binding.btnSavePerson.setOnClickListener(btn -> {dialogLoading = new DialogLoading(getActivity());addPerson(); dialogLoading.startLoadingDialog();});
+    }
+
+
+    private void addPerson(){
+        Person newPerson = new Person(
+                0,
+                binding.edtTextName.getText().toString(),
+                binding.edtTextSurName.getText().toString(),
+                "",
+                "",
+                binding.edtTextAddress.getText().toString(),
+                binding.edtTextPhone.getText().toString(),
+                2
+        );
+
+        Call<Integer> callFillPersons = ApiAdapter.getApiService().addPerson(newPerson);
+        callFillPersons.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                dialogLoading.stopLoadingDialog();
+                if (response.code() == 204){
+                    //TODO Hay que actualizar el ID con el ID de la bbdd
+                    //TODO Hay dos maneras,
+                    //TODO      1. Refrescar la lista al volver navegar hacia la pagina de la lista para que siempre este actualizada
+                    //TODO      2. La peticion devuelve el ID de la persona creada
+                    VMMainPage.addPerson(newPerson);
+                    MotionToast.Companion.darkColorToast(requireActivity(),"Person added!","Person added successfully!",
+                            MotionToast.TOAST_SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+                    VMMainPage.changeFragmentSelected("FragmentListPersons");
+                }else{
+                    onFailure(call,new Throwable("Parse error"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+                dialogLoading.stopLoadingDialog();
+
+                //InfoUsers.showMessage(TypeMessage.TOAST_ERROR,requireActivity(),requireContext());
+
+                MotionToast.Companion.darkColorToast(requireActivity(),"Error!","It has been realized correctly",
+                        MotionToast.TOAST_ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }

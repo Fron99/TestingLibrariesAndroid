@@ -21,6 +21,8 @@ import es.fjaviles.ApiRest.Model.Person;
 
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
+import es.fjaviles.Utils.InfoUsers;
+import es.fjaviles.Utils.TypeMessage;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentDetailsPersonsBinding;
 import retrofit2.Call;
@@ -91,18 +93,23 @@ public class FragmentDetailsPersons extends Fragment {
     }
 
     private void deletePerson(){
-        Call<Integer> callFillPersons = ApiAdapter.getApiService().deletePerson(personSelected.getId());
+        Call<Integer> callFillPersons = ApiAdapter.getApiService().removePerson(personSelected.getId());
         callFillPersons.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 dialogLoading.stopLoadingDialog();
                 if (response.code() == 204){
                     VMMainPage.removePerson(personSelected);
-                    MotionToast.Companion.darkColorToast(getActivity(),"Deleted!","Deleted Completed successfully!",
+
+                    //InfoUsers.showMessage(TypeMessage.TOAST_DELETE,requireActivity(),requireContext());
+
+                    MotionToast.Companion.darkColorToast(requireActivity(),"Deleted!","Deleted Completed successfully!",
                             MotionToast.TOAST_DELETE,
                             MotionToast.GRAVITY_BOTTOM,
                             MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(getContext(),R.font.helvetica_regular));
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+
+
                     VMMainPage.changeFragmentSelected("FragmentListPersons");
                 }else{
                     onFailure(call,new Throwable("Parse error"));
@@ -113,11 +120,14 @@ public class FragmentDetailsPersons extends Fragment {
             public void onFailure(Call<Integer> call, Throwable t) {
 
                 dialogLoading.stopLoadingDialog();
-                MotionToast.Companion.darkColorToast(getActivity(),"ERROR","The person not deleted",
+
+                //InfoUsers.showMessage(TypeMessage.TOAST_ERROR,requireActivity(),requireContext());
+
+                MotionToast.Companion.darkColorToast(requireActivity(),"Error!","It has been realized correctly",
                         MotionToast.TOAST_ERROR,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(getContext(),R.font.helvetica_regular));
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
 
             }
         });

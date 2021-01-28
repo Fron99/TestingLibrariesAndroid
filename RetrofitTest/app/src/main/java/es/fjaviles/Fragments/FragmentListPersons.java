@@ -23,6 +23,7 @@ import es.fjaviles.Adapters.CustomAdapter;
 import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
+import es.fjaviles.Utils.DialogLoading;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +35,7 @@ public class FragmentListPersons extends Fragment {
     private ViewModelMainPage VMMainPage;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton btnAddPerson;
+    private DialogLoading dialogLoading;
 
     public FragmentListPersons() {
 
@@ -62,6 +64,9 @@ public class FragmentListPersons extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
+        dialogLoading = new DialogLoading(requireActivity());
+        dialogLoading.startLoadingDialog();
+        refreshPersons();
         CustomAdapter adapter = new CustomAdapter(VMMainPage.getPersons());
         RecyclerView list = view.findViewById(R.id.recycledView);
 
@@ -102,6 +107,7 @@ public class FragmentListPersons extends Fragment {
         callFillPersons.enqueue(new Callback<ArrayList<Person>>() {
             @Override
             public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
+                dialogLoading.stopLoadingDialog();
                 if(response.isSuccessful()){
                     VMMainPage.addPersons(response.body());
                     swipeRefreshLayout.setRefreshing(false);
