@@ -15,6 +15,7 @@ import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.Fragments.FragmentCreatePerson;
 import es.fjaviles.Fragments.FragmentDetailsPersons;
+import es.fjaviles.Fragments.FragmentEditPerson;
 import es.fjaviles.Fragments.FragmentListPersons;
 import es.fjaviles.Utils.DialogLoading;
 import es.fjaviles.ViewModels.ViewModelMainPage;
@@ -46,6 +47,8 @@ public class MainPage extends AppCompatActivity {
 
                     case "FragmentListPersons":
                         getSupportFragmentManager().popBackStack("FragmentDetailsPersons", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        getSupportFragmentManager().popBackStack("FragmentCreatePerson", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        getSupportFragmentManager().popBackStack("FragmentEditPerson", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         getSupportFragmentManager().beginTransaction()
                                 .setReorderingAllowed(true)
                                 .replace(R.id.fragmentTotal, FragmentListPersons.class, null)
@@ -70,6 +73,15 @@ public class MainPage extends AppCompatActivity {
 
                         break;
 
+                    case "FragmentEditPerson":
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .addToBackStack("FragmentEditPerson")
+                                .replace(R.id.fragmentTotal, FragmentEditPerson.class, null)
+                                .commit();
+
+                        break;
+
                 }
 
             }
@@ -90,9 +102,7 @@ public class MainPage extends AppCompatActivity {
                 if(response.isSuccessful()){
                     dialogLoading.stopLoadingDialog();
                     VMMainPage.addPersons(response.body());
-                    if (VMMainPage.getPersons().size() > 0){
-                        VMMainPage.changeFragmentSelected("FragmentListPersons");
-                    }
+                    VMMainPage.changeFragmentSelected("FragmentListPersons");
                 }else{
                     onFailure(call,new Throwable("Parse error"));
                 }

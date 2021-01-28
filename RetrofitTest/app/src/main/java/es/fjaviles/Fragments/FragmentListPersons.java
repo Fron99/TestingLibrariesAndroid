@@ -36,6 +36,7 @@ public class FragmentListPersons extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton btnAddPerson;
     private DialogLoading dialogLoading;
+    private CustomAdapter adapter;
 
     public FragmentListPersons() {
 
@@ -67,7 +68,7 @@ public class FragmentListPersons extends Fragment {
         dialogLoading = new DialogLoading(requireActivity());
         dialogLoading.startLoadingDialog();
         refreshPersons();
-        CustomAdapter adapter = new CustomAdapter(VMMainPage.getPersons());
+        adapter = new CustomAdapter(VMMainPage.getPersons());
         RecyclerView list = view.findViewById(R.id.recycledView);
 
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);

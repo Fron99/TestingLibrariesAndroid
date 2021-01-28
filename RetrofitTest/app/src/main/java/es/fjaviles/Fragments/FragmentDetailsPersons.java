@@ -75,14 +75,13 @@ public class FragmentDetailsPersons extends Fragment {
         binding.address.setText(personSelected.getDireccion());
         binding.telephone.setText(personSelected.getTelefono());
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogLoading = new DialogLoading(getActivity());
-                dialogLoading.startLoadingDialog();
-                deletePerson();
-            }
+        binding.btnDelete.setOnClickListener(v -> {
+            dialogLoading = new DialogLoading(getActivity());
+            dialogLoading.startLoadingDialog();
+            deletePerson();
         });
+
+        binding.btnEdit.setOnClickListener(v -> VMMainPage.changeFragmentSelected("FragmentEditPerson"));
 
     }
 
