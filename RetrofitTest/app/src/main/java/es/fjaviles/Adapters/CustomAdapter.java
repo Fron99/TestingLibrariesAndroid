@@ -13,7 +13,7 @@ import es.fjaviles.R;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private ArrayList<Person> localDataSet;
+    private ArrayList<Person> persons;
     private OnItemClickListener mListener;
 
 
@@ -53,7 +53,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public CustomAdapter(ArrayList<Person> dataSet) {
-        localDataSet = dataSet;
+        persons = dataSet;
     }
 
     @Override
@@ -68,12 +68,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getTextView().setText(localDataSet.get(position).getNombre()+" "+localDataSet.get(position).getApellidos());
+        viewHolder.getTextView().setText(persons.get(position).getNombre()+" "+ persons.get(position).getApellidos());
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return persons.size();
+    }
+
+    public void addPersons(ArrayList<Person> persons){
+        this.persons.clear();
+        this.persons.addAll((ArrayList<Person>)persons.clone());
+    }
+
+    public void addPerson(Person persons){
+        this.persons.add(persons);
     }
 
 }

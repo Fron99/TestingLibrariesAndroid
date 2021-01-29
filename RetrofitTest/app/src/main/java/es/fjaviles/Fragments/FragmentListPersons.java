@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class FragmentListPersons extends Fragment {
     private FloatingActionButton btnAddPerson;
     private DialogLoading dialogLoading;
     private CustomAdapter adapter;
+    private RecyclerView list;
 
     public FragmentListPersons() {
 
@@ -64,41 +66,37 @@ public class FragmentListPersons extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
-        dialogLoading = new DialogLoading(requireActivity());
-        dialogLoading.startLoadingDialog();
-        refreshPersons();
-        adapter = new CustomAdapter(VMMainPage.getPersons());
-        RecyclerView list = view.findViewById(R.id.recycledView);
 
+        list = view.findViewById(R.id.recycledView);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
-
         btnAddPerson = view.findViewById(R.id.fab);
 
-        btnAddPerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VMMainPage.changeFragmentSelected("FragmentCreatePerson");
-            }
-        });
+        dialogLoading = new DialogLoading(requireActivity());
+        dialogLoading.startLoadingDialog();
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshPersons();
-            }
+        refreshPersons();
+
+        adapter = new CustomAdapter(VMMainPage.getPersons());
+        adapter.setOnItemClickListener(position -> {
+            VMMainPage.setPersonSelected(VMMainPage.getPersons().get(position));
+            VMMainPage.changeFragmentSelected("FragmentDetailsPersons");
         });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
         list.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                VMMainPage.setPersonSelected(VMMainPage.getPersons().get(position));
-                VMMainPage.changeFragmentSelected("FragmentDetailsPersons");
-            }
-        });
+
+        btnAddPerson.setOnClickListener(v -> VMMainPage.changeFragmentSelected("FragmentCreatePerson"));
+
+        swipeRefreshLayout.setOnRefreshListener(this::refreshPersons);
+
+        Observer<ArrayList<Person>> observerForAdapter = people -> {
+            adapter.addPersons(people);
+            adapter.notifyDataSetChanged();
+        };
+
+        VMMainPage.getLiveDataPersons().observe(requireActivity(),observerForAdapter);
 
     }
 
@@ -109,6 +107,7 @@ public class FragmentListPersons extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<Person>> call, @NonNull Response<ArrayList<Person>> response) {
                 dialogLoading.stopLoadingDialog();
                 if(response.isSuccessful()){
+
                     VMMainPage.addPersons(response.body());
                     swipeRefreshLayout.setRefreshing(false);
 

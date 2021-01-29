@@ -1,6 +1,8 @@
 
 package es.fjaviles.ApiRest.Model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -160,6 +162,5 @@ public class Person {
         this.idDepartamento = idDepartamento;
         return this;
     }
-
 
 }

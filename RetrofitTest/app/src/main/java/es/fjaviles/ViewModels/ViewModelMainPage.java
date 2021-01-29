@@ -10,43 +10,43 @@ import es.fjaviles.ApiRest.Model.Person;
 
 public class ViewModelMainPage extends ViewModel {
 
-    private ArrayList<Person> persons;
+    private MutableLiveData<ArrayList<Person>> persons;
     private Person personSelected;
     private MutableLiveData<String> fragmentSelected;
 
     public ViewModelMainPage(){
-        persons = new ArrayList<>();
-        fragmentSelected = new MutableLiveData<>();
+        this.persons = new MutableLiveData<>(new ArrayList<>());
+        this.fragmentSelected = new MutableLiveData<>();
     }
 
     public ViewModelMainPage(ArrayList<Person> persons){
-        persons = new ArrayList<>(persons);
-        fragmentSelected = new MutableLiveData<>();
+        this.persons = new MutableLiveData<>(persons);
+        this.fragmentSelected = new MutableLiveData<>();
     }
 
     public void addPerson(Person person){
-        persons.add(person);
+        persons.getValue().add(person);
     }
 
     public void addPersons(ArrayList<Person> persons){
-        this.persons.clear();
-        this.persons.addAll(persons);
+        this.persons.getValue().clear();
+        this.persons.setValue(persons);
     }
 
     public void removePerson(Person person){
-        persons.remove(person);
+        persons.getValue().remove(person);
     }
 
     public void removePerson(int positionPerson){
-        persons.remove(positionPerson);
+        persons.getValue().remove(positionPerson);
     }
 
     public Person getPerson(int positionPerson){
-        return persons.get(positionPerson);
+        return persons.getValue().get(positionPerson);
     }
 
     public ArrayList<Person> getPersons(){
-        return (ArrayList<Person>) persons.clone();
+        return (ArrayList<Person>) persons.getValue().clone();
     }
 
     public LiveData<String> getFragmentSelected(){
@@ -54,6 +54,13 @@ public class ViewModelMainPage extends ViewModel {
             fragmentSelected = new MutableLiveData<>();
         }
         return fragmentSelected;
+    }
+
+    public LiveData<ArrayList<Person>> getLiveDataPersons(){
+        if (persons == null){
+            persons = new MutableLiveData<>();
+        }
+        return persons;
     }
 
     public String getValueFragmentSelected(){

@@ -34,9 +34,6 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.startLoadingDialog();
-
         VMMainPage = new ViewModelProvider(this).get(ViewModelMainPage.class);
 
         Observer<String> observer = new Observer<String>() {
@@ -90,36 +87,9 @@ public class MainPage extends AppCompatActivity {
 
         VMMainPage.getFragmentSelected().observe(this,observer);
 
-        chargePersons();
+        VMMainPage.changeFragmentSelected("FragmentListPersons");
 
-    }
 
-    private void chargePersons(){
-        Call<ArrayList<Person>> callFillPersons = ApiAdapter.getApiService().getPersons();
-        callFillPersons.enqueue(new Callback<ArrayList<Person>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
-                if(response.isSuccessful()){
-                    dialogLoading.stopLoadingDialog();
-                    VMMainPage.addPersons(response.body());
-                    VMMainPage.changeFragmentSelected("FragmentListPersons");
-                }else{
-                    onFailure(call,new Throwable("Parse error"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Person>> call, Throwable t) {
-
-                dialogLoading.stopLoadingDialog();
-                MotionToast.Companion.createToast(getParent(),"ERROR","The person not deleted",
-                        MotionToast.TOAST_ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(getApplication(),R.font.helvetica_regular));
-
-            }
-        });
     }
 
 }
