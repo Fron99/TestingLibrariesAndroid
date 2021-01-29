@@ -12,17 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
 
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
-import es.fjaviles.Utils.InfoUsers;
-import es.fjaviles.Utils.TypeMessage;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentDetailsPersonsBinding;
 import retrofit2.Call;

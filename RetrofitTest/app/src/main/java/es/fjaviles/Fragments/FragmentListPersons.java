@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,11 +23,11 @@ import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
+import es.fjaviles.Utils.InfoUsers;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import www.sanju.motiontoast.MotionToast;
 
 public class FragmentListPersons extends Fragment {
 
@@ -107,24 +106,25 @@ public class FragmentListPersons extends Fragment {
         Call<ArrayList<Person>> callFillPersons = ApiAdapter.getApiService().getPersons();
         callFillPersons.enqueue(new Callback<ArrayList<Person>>() {
             @Override
-            public void onResponse(Call<ArrayList<Person>> call, Response<ArrayList<Person>> response) {
+            public void onResponse(@NonNull Call<ArrayList<Person>> call, @NonNull Response<ArrayList<Person>> response) {
                 dialogLoading.stopLoadingDialog();
                 if(response.isSuccessful()){
                     VMMainPage.addPersons(response.body());
                     swipeRefreshLayout.setRefreshing(false);
+
+                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                            InfoUsers.TOAST_INFO, "Users updated!","The list of users was updated");
+
                 }else{
                     onFailure(call,new Throwable("Parse error"));
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Person>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<Person>> call, @NonNull Throwable t) {
 
-                MotionToast.Companion.darkColorToast(getActivity(),"ERROR","The person not deleted",
-                        MotionToast.TOAST_ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(getContext(),R.font.helvetica_regular));
+                InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                        InfoUsers.TOAST_NO_INTERNET, "No connection","Try again later");
 
             }
         });
