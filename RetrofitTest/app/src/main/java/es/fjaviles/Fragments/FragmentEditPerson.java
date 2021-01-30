@@ -1,5 +1,6 @@
 package es.fjaviles.Fragments;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,6 @@ import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
 import es.fjaviles.ViewModels.ViewModelMainPage;
-import es.fjaviles.databinding.FragmentCreatePersonBinding;
 import es.fjaviles.databinding.FragmentEditPersonBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +69,9 @@ public class FragmentEditPerson extends Fragment {
         binding.edtTextSurName.setText(VMMainPage.getPersonSelected().getApellidos());
         binding.edtTextAddress.setText(VMMainPage.getPersonSelected().getDireccion());
         binding.edtTextPhone.setText(VMMainPage.getPersonSelected().getTelefono());
+        binding.edtDate.setText(VMMainPage.getPersonSelected().getFechaNacimiento().split("T")[0]);
 
+        binding.edtDate.setOnClickListener(view1 -> { requireDate(); });
 
         binding.btnSavePerson.setOnClickListener(btn -> {dialogLoading = new DialogLoading(getActivity());editPerson(); dialogLoading.startLoadingDialog();});
     }
@@ -80,7 +82,7 @@ public class FragmentEditPerson extends Fragment {
                 0,
                 binding.edtTextName.getText().toString(),
                 binding.edtTextSurName.getText().toString(),
-                "2021-11-03T00:00:00",
+                binding.edtDate.getText().toString(),
                 "",
                 binding.edtTextAddress.getText().toString(),
                 binding.edtTextPhone.getText().toString(),
@@ -125,5 +127,19 @@ public class FragmentEditPerson extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void requireDate(){
+        String[] date = binding.edtDate.getText().toString().split("-");
+        int yearSelected = Integer.parseInt(date[0]);
+        int monthSelected = Integer.parseInt(date[1]);
+        int daySelected = Integer.parseInt(date[2]);
+
+        DatePickerDialog datePikerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, year, month, dayOfMonth) -> binding.edtDate.setText(year+"-"+month+"-"+dayOfMonth),
+                yearSelected, monthSelected, daySelected);
+        datePikerDialog.show();
+
     }
 }

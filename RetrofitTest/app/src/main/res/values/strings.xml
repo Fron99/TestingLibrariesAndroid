@@ -12,4 +12,9 @@
     <string name="save_person">Save person</string>
     <string name="save_changes">SAVE CHANGES</string>
     <string name="edit">EDIT</string>
+    <string name="defaultNameSurname">John Doe John Doe John Doe John Doe John Doe John Doe John Doe John Doe</string>
+    <string name="defaultTelephone">654654654</string>
+    <string name="defaultDate">01/01/2000</string>
+    <string name="nothing">Nothing</string>
+    <string name="birthdate">Birthdate</string>
 </resources>

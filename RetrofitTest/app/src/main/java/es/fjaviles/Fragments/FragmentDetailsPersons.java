@@ -66,9 +66,9 @@ public class FragmentDetailsPersons extends Fragment {
         personSelected = VMMainPage.getPersonSelected();
 
         binding.nameAndSurname.setText(personSelected.getNombre()+" "+personSelected.getApellidos());
-        binding.birthdate.setText(personSelected.getFechaNacimiento().split("T")[0]);
+        binding.txtViewBirthdate.setText(personSelected.getFechaNacimiento().split("T")[0]);
         binding.address.setText(personSelected.getDireccion());
-        binding.telephone.setText(personSelected.getTelefono());
+        binding.txtViewTelephone.setText(personSelected.getTelefono());
 
         binding.btnDelete.setOnClickListener(v -> {
             dialogLoading = new DialogLoading(getActivity());

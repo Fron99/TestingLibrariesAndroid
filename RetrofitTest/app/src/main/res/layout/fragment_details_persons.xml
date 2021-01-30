@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toBottomOf="@+id/telephone" />
+        app:layout_constraintTop_toBottomOf="@+id/txtViewTelephone" />
 
     <TextView
         android:id="@+id/address"
@@ -24,10 +24,10 @@
         android:gravity="center"
         android:textSize="20sp"
         android:ellipsize="marquee"
-        app:layout_constraintBottom_toTopOf="@+id/telephone"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewTelephone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthdate" />
+        app:layout_constraintTop_toBottomOf="@+id/txtViewBirthdate" />
 
     <TextView
         android:id="@+id/nameAndSurname"
@@ -37,14 +37,14 @@
         android:gravity="center"
         android:textSize="20sp"
         android:ellipsize="marquee"
-        app:layout_constraintBottom_toTopOf="@+id/birthdate"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewBirthdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:singleLine="true" />
 
     <TextView
-        android:id="@+id/birthdate"
+        android:id="@+id/txtViewBirthdate"
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:gravity="center"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="@+id/btnDelete" />
 
     <TextView
-        android:id="@+id/telephone"
+        android:id="@+id/txtViewTelephone"
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:ellipsize="marquee"
