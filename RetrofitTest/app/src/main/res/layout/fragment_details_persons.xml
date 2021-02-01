@@ -4,81 +4,200 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/txtViewName"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:text="@string/name"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edtTextName"
+        android:layout_width="306dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="71dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewSurname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewName" />
+
+    <TextView
+        android:id="@+id/txtViewSurname"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:text="@string/surname"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextSurName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
+
+    <TextView
+        android:id="@+id/edtTextSurName"
+        android:layout_width="306dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="71dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSurname" />
+
+    <TextView
+        android:id="@+id/txtViewDate"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:text="@string/birthdate"
+        app:layout_constraintBottom_toTopOf="@+id/edtDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextSurName" />
+
+    <TextView
+        android:id="@+id/edtDate"
+        android:layout_width="323dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="54dp"
+        android:focusable="false"
+        android:textColor="@color/white"
+        android:inputType="none"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewDate"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/txtViewAddress"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:text="@string/address"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtDate" />
+
+    <TextView
+        android:id="@+id/edtTextAddress"
+        android:layout_width="306dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="71dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewAddress" />
+
+    <TextView
+        android:id="@+id/txtViewPhone"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:text="@string/telephone"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextAddress" />
+
+    <TextView
+        android:id="@+id/edtTextPhone"
+        android:layout_width="306dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="71dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:inputType="phone"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/txtViewDepartament"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewPhone" />
+
+    <TextView
+        android:id="@+id/txtViewDepartament"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="257dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/departament"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerDepartament"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextPhone" />
+
+    <TextView
+        android:id="@+id/spinnerDepartament"
+        android:layout_width="327dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="50dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewDepartament" />
+
+
     <Button
         android:id="@+id/btnDelete"
-        android:layout_width="170dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="170dp"
-        android:layout_marginBottom="100dp"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="80dp"
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDepartament"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewTelephone" />
-
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:ellipsize="marquee"
-        app:layout_constraintBottom_toTopOf="@+id/txtViewTelephone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewBirthdate" />
-
-    <TextView
-        android:id="@+id/nameAndSurname"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="80dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:ellipsize="marquee"
-        app:layout_constraintBottom_toTopOf="@+id/txtViewBirthdate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:singleLine="true" />
-
-    <TextView
-        android:id="@+id/txtViewBirthdate"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:ellipsize="marquee"
-        app:layout_constraintBottom_toTopOf="@+id/address"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameAndSurname" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDepartament" />
 
     <Button
         android:id="@+id/btnEdit"
-        android:layout_width="170dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="112dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
+        app:layout_constraintEnd_toStartOf="@id/btnDelete"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDepartament"
         app:layout_constraintTop_toTopOf="@+id/btnDelete" />
-
-    <TextView
-        android:id="@+id/txtViewTelephone"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:ellipsize="marquee"
-        android:gravity="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnDelete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

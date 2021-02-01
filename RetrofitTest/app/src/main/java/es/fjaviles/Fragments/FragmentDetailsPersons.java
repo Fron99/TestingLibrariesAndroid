@@ -65,10 +65,11 @@ public class FragmentDetailsPersons extends Fragment {
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
         personSelected = VMMainPage.getPersonSelected();
 
-        binding.nameAndSurname.setText(personSelected.getNombre()+" "+personSelected.getApellidos());
-        binding.txtViewBirthdate.setText(personSelected.getFechaNacimiento().split("T")[0]);
-        binding.address.setText(personSelected.getDireccion());
-        binding.txtViewTelephone.setText(personSelected.getTelefono());
+        binding.edtTextName.setText(VMMainPage.getPersonSelected().getNombre());
+        binding.edtTextSurName.setText(VMMainPage.getPersonSelected().getApellidos());
+        binding.edtTextAddress.setText(VMMainPage.getPersonSelected().getDireccion());
+        binding.edtTextPhone.setText(VMMainPage.getPersonSelected().getTelefono());
+        binding.edtDate.setText(VMMainPage.getPersonSelected().getFechaNacimiento().split("T")[0]);
 
         binding.btnDelete.setOnClickListener(v -> {
             dialogLoading = new DialogLoading(getActivity());

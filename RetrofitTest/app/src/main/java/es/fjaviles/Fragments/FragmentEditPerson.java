@@ -17,6 +17,7 @@ import es.fjaviles.ApiRest.ApiAdapter;
 import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
+import es.fjaviles.Utils.InfoUsers;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentEditPersonBinding;
 import retrofit2.Call;
@@ -34,7 +35,6 @@ public class FragmentEditPerson extends Fragment {
     private DialogLoading dialogLoading;
     private ViewModelMainPage VMMainPage;
     private FragmentEditPersonBinding binding;
-
 
     public FragmentEditPerson() {
 
@@ -78,6 +78,7 @@ public class FragmentEditPerson extends Fragment {
 
 
     private void editPerson(){
+
         Person personEdited = new Person(
                 0,
                 binding.edtTextName.getText().toString(),
@@ -89,38 +90,69 @@ public class FragmentEditPerson extends Fragment {
                 2
         );
 
-        Call<Integer> callFillPersons = ApiAdapter.getApiService().modifyPerson(VMMainPage.getPersonSelected().getId(),personEdited);
-        callFillPersons.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                dialogLoading.stopLoadingDialog();
-                if (response.code() == 204){
-                    MotionToast.Companion.darkColorToast(requireActivity(),"Person modified!","Person modified correctly!",
-                            MotionToast.TOAST_SUCCESS,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
-                    VMMainPage.changeFragmentSelected("FragmentListPersons");
-                }else{
-                    onFailure(call,new Throwable("Parse error"));
+        if (VMMainPage.getPersonSelected().getId() != -1){
+
+            Call<Integer> callFillPersons = ApiAdapter.getApiService().modifyPerson(VMMainPage.getPersonSelected().getId(),personEdited);
+            callFillPersons.enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    dialogLoading.stopLoadingDialog();
+                    if (response.code() == 204){
+
+                        InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                                InfoUsers.TOAST_SUCCESS,
+                                "Person modified!","Person modified correctly!");
+
+                        VMMainPage.changeFragmentSelected("FragmentListPersons");
+                    }else{
+                        onFailure(call,new Throwable("Parse error"));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
 
-                dialogLoading.stopLoadingDialog();
+                    dialogLoading.stopLoadingDialog();
 
-                //InfoUsers.showMessage(TypeMessage.TOAST_ERROR,requireActivity(),requireContext());
+                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                            InfoUsers.TOAST_ERROR,
+                            "Error!","The person could not be modified");
+                }
+            });
 
-                MotionToast.Companion.darkColorToast(requireActivity(),"Error!","It has been realized correctly",
-                        MotionToast.TOAST_ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+        }else{
 
-            }
-        });
+            Call<Integer> callFillPersons = ApiAdapter.getApiService().addPerson(personEdited);
+            callFillPersons.enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    dialogLoading.stopLoadingDialog();
+                    if (response.code() == 204){
+
+                        InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                                InfoUsers.TOAST_SUCCESS,
+                                "Person added!","Person added correctly!");
+
+                        VMMainPage.changeFragmentSelected("FragmentListPersons");
+                    }else{
+                        onFailure(call,new Throwable("Parse error"));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
+
+                    dialogLoading.stopLoadingDialog();
+
+                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                            InfoUsers.TOAST_ERROR,
+                            "Error!","The person could not be added");
+
+                }
+            });
+        }
+
+
     }
 
     @Override

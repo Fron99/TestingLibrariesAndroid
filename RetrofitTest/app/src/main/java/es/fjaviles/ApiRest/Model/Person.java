@@ -7,6 +7,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.reflect.GenericArrayType;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Person {
 
@@ -36,14 +41,16 @@ public class Person {
     private int idDepartamento;
 
     public Person(){
-        id = 1;
-        nombre = "pepe";
-        apellidos = "jose";
-        fechaNacimiento = "2020-12-21";
+        id = -1;
+        nombre = "";
+        apellidos = "";
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        fechaNacimiento = simpleDateFormat.format(new Date());
         foto = "";
-        direccion = "Mi casa";
-        telefono = "6541223654";
-        idDepartamento = 2;
+        direccion = "";
+        telefono = "";
+        idDepartamento = 1;
 
     }
 
