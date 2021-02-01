@@ -73,7 +73,15 @@ public class FragmentEditPerson extends Fragment {
 
         binding.edtDate.setOnClickListener(view1 -> { requireDate(); });
 
-        binding.btnSavePerson.setOnClickListener(btn -> {dialogLoading = new DialogLoading(getActivity());editPerson(); dialogLoading.startLoadingDialog();});
+        binding.btnSavePerson.setOnClickListener(btn -> {
+            dialogLoading = new DialogLoading(getActivity());
+            if (VMMainPage.getPersonSelected().getId() == -1){
+                savePerson();
+            }else{
+                editPerson();
+            }
+            dialogLoading.startLoadingDialog();
+        });
     }
 
 
@@ -90,68 +98,105 @@ public class FragmentEditPerson extends Fragment {
                 2
         );
 
-        if (VMMainPage.getPersonSelected().getId() != -1){
+        Call<Integer> callFillPersons = ApiAdapter.getApiService().modifyPerson(VMMainPage.getPersonSelected().getId(),personEdited);
+        callFillPersons.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                dialogLoading.stopLoadingDialog();
+                if (response.code() == 204){
 
-            Call<Integer> callFillPersons = ApiAdapter.getApiService().modifyPerson(VMMainPage.getPersonSelected().getId(),personEdited);
-            callFillPersons.enqueue(new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, Response<Integer> response) {
-                    dialogLoading.stopLoadingDialog();
-                    if (response.code() == 204){
+                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                            InfoUsers.TOAST_SUCCESS,
+                            "Person modified!","Person modified correctly!");*/
 
-                        InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                    MotionToast.Companion.darkColorToast(requireActivity(),
+                            "Person modified!","Person modified correctly!",
+                            MotionToast.TOAST_SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+
+                    VMMainPage.changeFragmentSelected("FragmentListPersons");
+                }else{
+                    onFailure(call,new Throwable("Parse error"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+                dialogLoading.stopLoadingDialog();
+
+                /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                        InfoUsers.TOAST_ERROR,
+                        "Error!","The person could not be modified");*/
+
+                MotionToast.Companion.darkColorToast(requireActivity(),
+                        "Error!","he person could not be modified",
+                        MotionToast.TOAST_ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+            }
+        });
+
+    }
+
+    private void savePerson(){
+
+        Person personEdited = new Person(
+                0,
+                binding.edtTextName.getText().toString(),
+                binding.edtTextSurName.getText().toString(),
+                binding.edtDate.getText().toString(),
+                "",
+                binding.edtTextAddress.getText().toString(),
+                binding.edtTextPhone.getText().toString(),
+                2
+        );
+
+        Call<Integer> callFillPersons = ApiAdapter.getApiService().addPerson(personEdited);
+        callFillPersons.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                dialogLoading.stopLoadingDialog();
+                if (response.code() == 204){
+
+                        /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
                                 InfoUsers.TOAST_SUCCESS,
-                                "Person modified!","Person modified correctly!");
+                                "Person added!","Person added correctly!");*/
 
-                        VMMainPage.changeFragmentSelected("FragmentListPersons");
-                    }else{
-                        onFailure(call,new Throwable("Parse error"));
-                    }
+                    MotionToast.Companion.darkColorToast(requireActivity(),
+                            "Person added!","Person added correctly!",
+                            MotionToast.TOAST_SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+
+                    VMMainPage.changeFragmentSelected("FragmentListPersons");
+                }else{
+                    onFailure(call,new Throwable("Parse error"));
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
 
-                    dialogLoading.stopLoadingDialog();
+                dialogLoading.stopLoadingDialog();
 
-                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
+                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
                             InfoUsers.TOAST_ERROR,
-                            "Error!","The person could not be modified");
-                }
-            });
+                            "Error!","The person could not be added");*/
 
-        }else{
+                MotionToast.Companion.darkColorToast(requireActivity(),
+                        "Error!","The person could not be added",
+                        MotionToast.TOAST_ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
 
-            Call<Integer> callFillPersons = ApiAdapter.getApiService().addPerson(personEdited);
-            callFillPersons.enqueue(new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, Response<Integer> response) {
-                    dialogLoading.stopLoadingDialog();
-                    if (response.code() == 204){
-
-                        InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
-                                InfoUsers.TOAST_SUCCESS,
-                                "Person added!","Person added correctly!");
-
-                        VMMainPage.changeFragmentSelected("FragmentListPersons");
-                    }else{
-                        onFailure(call,new Throwable("Parse error"));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
-
-                    dialogLoading.stopLoadingDialog();
-
-                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
-                            InfoUsers.TOAST_ERROR,
-                            "Error!","The person could not be added");
-
-                }
-            });
-        }
-
+            }
+        });
 
     }
 

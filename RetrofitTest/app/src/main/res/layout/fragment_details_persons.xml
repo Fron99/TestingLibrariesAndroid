@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgroundScreens">
 
     <TextView
         android:id="@+id/txtViewName"
@@ -25,9 +26,10 @@
         android:layout_marginStart="34dp"
         android:layout_marginEnd="71dp"
         android:ems="10"
+        android:textSize="22sp"
         android:gravity="center_vertical"
         android:inputType="textPersonName"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/txtViewSurname"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +56,9 @@
         android:layout_marginStart="34dp"
         android:layout_marginEnd="71dp"
         android:ems="10"
+        android:textSize="22sp"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/txtViewDate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +85,8 @@
         android:layout_marginStart="34dp"
         android:layout_marginEnd="54dp"
         android:focusable="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textSize="22sp"
         android:inputType="none"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/txtViewAddress"
@@ -112,8 +116,9 @@
         android:layout_marginEnd="71dp"
         android:ems="10"
         android:gravity="center_vertical"
+        android:textSize="22sp"
         android:inputType="textPersonName"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/txtViewPhone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,8 +146,8 @@
         android:layout_marginEnd="71dp"
         android:ems="10"
         android:gravity="center_vertical"
-        android:inputType="phone"
-        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textColor="@color/black"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/txtViewDepartament"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +174,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="34dp"
         android:layout_marginEnd="50dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +192,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/spinnerDepartament"
         app:layout_constraintStart_toEndOf="@+id/btnEdit"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDepartament" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDepartament"
+        android:background="@drawable/btn_radius"/>
 
     <Button
         android:id="@+id/btnEdit"
@@ -197,7 +204,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
         app:layout_constraintEnd_toStartOf="@id/btnDelete"
         app:layout_constraintStart_toStartOf="@+id/spinnerDepartament"
-        app:layout_constraintTop_toTopOf="@+id/btnDelete" />
+        app:layout_constraintTop_toTopOf="@+id/btnDelete"
+        android:background="@drawable/btn_radius"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

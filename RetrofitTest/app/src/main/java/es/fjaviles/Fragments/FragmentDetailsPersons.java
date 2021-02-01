@@ -18,6 +18,7 @@ import es.fjaviles.ApiRest.Model.Person;
 
 import es.fjaviles.R;
 import es.fjaviles.Utils.DialogLoading;
+import es.fjaviles.Utils.InfoUsers;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentDetailsPersonsBinding;
 import retrofit2.Call;
@@ -36,7 +37,6 @@ public class FragmentDetailsPersons extends Fragment {
     public FragmentDetailsPersons() {
 
     }
-
 
     public static FragmentDetailsPersons newInstance() {
         FragmentDetailsPersons fragment = new FragmentDetailsPersons();
@@ -96,13 +96,16 @@ public class FragmentDetailsPersons extends Fragment {
                 if (response.code() == 204){
                     VMMainPage.removePerson(personSelected);
 
-                    //InfoUsers.showMessage(TypeMessage.TOAST_DELETE,requireActivity(),requireContext());
+                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                            InfoUsers.TOAST_DELETE,
+                            "Deleted!","Deleted Completed successfully!");*/
 
-                    MotionToast.Companion.darkColorToast(requireActivity(),"Deleted!","Deleted Completed successfully!",
+                    MotionToast.Companion.darkColorToast(getActivity(),
+                            "Deleted!","Deleted Completed successfully!",
                             MotionToast.TOAST_DELETE,
                             MotionToast.GRAVITY_BOTTOM,
                             MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+                            ResourcesCompat.getFont(getContext(), R.font.helvetica_regular));
 
 
                     VMMainPage.changeFragmentSelected("FragmentListPersons");
@@ -116,13 +119,16 @@ public class FragmentDetailsPersons extends Fragment {
 
                 dialogLoading.stopLoadingDialog();
 
-                //InfoUsers.showMessage(TypeMessage.TOAST_ERROR,requireActivity(),requireContext());
+                /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                        InfoUsers.TOAST_DELETE,
+                        "Error!","It has been realized correctly");*/
 
-                MotionToast.Companion.darkColorToast(requireActivity(),"Error!","It has been realized correctly",
-                        MotionToast.TOAST_ERROR,
+                MotionToast.Companion.darkColorToast(getActivity(),
+                        "Error!","It wasn`t done correctly",
+                        MotionToast.TOAST_DELETE,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
+                        ResourcesCompat.getFont(getContext(), R.font.helvetica_regular));
 
             }
         });

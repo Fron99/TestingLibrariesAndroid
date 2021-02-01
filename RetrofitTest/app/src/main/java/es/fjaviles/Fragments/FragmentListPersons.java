@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,6 +30,7 @@ import es.fjaviles.ViewModels.ViewModelMainPage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import www.sanju.motiontoast.MotionToast;
 
 public class FragmentListPersons extends Fragment {
 
@@ -111,8 +113,16 @@ public class FragmentListPersons extends Fragment {
                     VMMainPage.addPersons(response.body());
                     swipeRefreshLayout.setRefreshing(false);
 
-                    InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
-                            InfoUsers.TOAST_INFO, "Users updated!","The list of users was updated");
+                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                            InfoUsers.TOAST_INFO, "Users updated!","The list of users was updated");*/
+
+
+                    MotionToast.Companion.darkColorToast(requireActivity(),
+                            "Users updated!","The list of users was updated",
+                            MotionToast.TOAST_INFO,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
 
                 }else{
                     onFailure(call,new Throwable("Parse error"));
@@ -122,8 +132,15 @@ public class FragmentListPersons extends Fragment {
             @Override
             public void onFailure(@NonNull Call<ArrayList<Person>> call, @NonNull Throwable t) {
 
-                InfoUsers.showMessageDarkColorToast(requireActivity(), requireContext(),
-                        InfoUsers.TOAST_NO_INTERNET, "No connection","Try again later");
+                /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
+                        InfoUsers.TOAST_NO_INTERNET, "No connection","Try again later");*/
+
+                MotionToast.Companion.darkColorToast(requireActivity(),
+                        "No connection","Try again later",
+                        MotionToast.TOAST_INFO,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
 
             }
         });

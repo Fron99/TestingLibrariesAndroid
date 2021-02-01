@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#e1f5fe"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp"
+    android:background="@color/rows"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="5dp"
     android:layout_marginStart="5dp">
 
@@ -28,7 +28,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingStart="10dp"
+        android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:text="@string/defaultNameSurname"
         android:textSize="20sp"
