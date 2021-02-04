@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "169206475812",
+    "project_id": "apptest-375d9",
+    "storage_bucket": "apptest-375d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169206475812:android:e581f7aa73372aa5e6bcb1",
+        "android_client_info": {
+          "package_name": "es.fjaviles.testappfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169206475812-orpgb3bmcm9vt2eom07vai3q7f96hcqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAkQyX7mPQIBfpj4xJJrPNM9LJZOby7lg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169206475812-orpgb3bmcm9vt2eom07vai3q7f96hcqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
