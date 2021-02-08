@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CrudRetrofit</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading...</string>
+    <string name="addperson">addPerson</string>
+    <string name="address">Address</string>
+    <string name="surname">Surname</string>
+    <string name="name">Name</string>
+    <string name="telephone">Telephone</string>
+    <string name="departament">Departament</string>
+    <string name="save_person">Save person</string>
+    <string name="save_changes">SAVE CHANGES</string>
+    <string name="defaultNameSurname">John Doe John Doe John Doe John Doe John Doe John Doe John Doe John Doe</string>
+    <string name="defaultTelephone">654654654</string>
+    <string name="defaultDate">01/01/2000</string>
+    <string name="nothing">Nothing</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="edit">EDIT</string>
+    <string name="delete">DELETE</string>
+</resources>
