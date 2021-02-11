@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-import es.fjaviles.ApiRest.Model.Person;
+import es.fjaviles.Dao.Model.Person;
 
 public class ViewModelMainPage extends ViewModel {
 
@@ -30,7 +30,8 @@ public class ViewModelMainPage extends ViewModel {
 
     public void addPersons(ArrayList<Person> persons){
         this.persons.getValue().clear();
-        this.persons.setValue(persons);
+        if (persons != null)
+            this.persons.setValue(persons);
     }
 
     public void removePerson(Person person){
@@ -46,6 +47,10 @@ public class ViewModelMainPage extends ViewModel {
     }
 
     public ArrayList<Person> getPersons(){
+        if ( persons.getValue() == null){
+            persons = new MutableLiveData<>();
+            persons.setValue(new ArrayList<>());
+        }
         return (ArrayList<Person>) persons.getValue().clone();
     }
 

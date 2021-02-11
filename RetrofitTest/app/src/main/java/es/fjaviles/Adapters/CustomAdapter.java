@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Random;
 
-import es.fjaviles.Dao.Model.Person;
+import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.R;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
@@ -116,9 +116,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
 
         viewHolder.setImgViewPerson(id);
-        viewHolder.setTxtViewNameAndSurname(persons.get(position).getName()+" "+ persons.get(position).getSurname());
-        viewHolder.setTxtViewTelephone(persons.get(position).getTelephone());
-        //viewHolder.setTxtViewBirthdate(persons.get(position).getFechaNacimiento().split("T")[0]);
+        viewHolder.setTxtViewNameAndSurname(persons.get(position).getNombre()+" "+ persons.get(position).getApellidos());
+        viewHolder.setTxtViewTelephone(persons.get(position).getTelefono());
+        viewHolder.setTxtViewBirthdate(persons.get(position).getFechaNacimiento().split("T")[0]);
     }
 
     @Override

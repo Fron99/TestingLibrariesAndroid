@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import es.fjaviles.Dao.Model.Person;
+import es.fjaviles.ApiRest.Model.Person;
 import es.fjaviles.Fragments.FragmentDetailsPersons;
 import es.fjaviles.Fragments.FragmentEditPerson;
 import es.fjaviles.Fragments.FragmentListPersons;

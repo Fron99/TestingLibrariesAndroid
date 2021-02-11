@@ -2,39 +2,31 @@ package es.fjaviles.Fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import es.fjaviles.ApiRest.ApiAdapter;
-import es.fjaviles.ApiRest.Model.Person;
-import es.fjaviles.R;
+import es.fjaviles.Dao.AppDatabase;
+import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.Utils.DialogLoading;
-import es.fjaviles.Utils.InfoUsers;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentEditPersonBinding;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import www.sanju.motiontoast.MotionToast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentEditPerson#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class FragmentEditPerson extends Fragment {
 
     private DialogLoading dialogLoading;
     private ViewModelMainPage VMMainPage;
     private FragmentEditPersonBinding binding;
+    private Person personSelected;
 
     public FragmentEditPerson() {
 
@@ -65,22 +57,23 @@ public class FragmentEditPerson extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
-        binding.edtTextName.setText(VMMainPage.getPersonSelected().getNombre());
-        binding.edtTextSurName.setText(VMMainPage.getPersonSelected().getApellidos());
-        binding.edtTextAddress.setText(VMMainPage.getPersonSelected().getDireccion());
-        binding.edtTextPhone.setText(VMMainPage.getPersonSelected().getTelefono());
-        binding.edtDate.setText(VMMainPage.getPersonSelected().getFechaNacimiento().split("T")[0]);
+        dialogLoading = new DialogLoading(requireActivity());
+        personSelected = VMMainPage.getPersonSelected();
+        binding.edtTextName.setText(personSelected.getName());
+        binding.edtTextSurName.setText(personSelected.getSurname());
+        binding.edtTextAddress.setText(personSelected.getAddress());
+        binding.edtTextPhone.setText(personSelected.getTelephone());
+        //binding.edtDate.setText(VMMainPage.getPersonSelected().getFechaNacimiento().split("T")[0]);
 
         binding.edtDate.setOnClickListener(view1 -> { requireDate(); });
 
         binding.btnSavePerson.setOnClickListener(btn -> {
-            dialogLoading = new DialogLoading(getActivity());
-            if (VMMainPage.getPersonSelected().getId() == -1){
+            dialogLoading.startLoadingDialog();
+            if (personSelected.getId() == -1){
                 savePerson();
             }else{
                 editPerson();
             }
-            dialogLoading.startLoadingDialog();
         });
     }
 
@@ -88,57 +81,18 @@ public class FragmentEditPerson extends Fragment {
     private void editPerson(){
 
         Person personEdited = new Person(
-                0,
+                personSelected.getId(),
                 binding.edtTextName.getText().toString(),
                 binding.edtTextSurName.getText().toString(),
-                binding.edtDate.getText().toString(),
+                "",//binding.edtDate.getText().toString(),
                 "",
                 binding.edtTextAddress.getText().toString(),
-                binding.edtTextPhone.getText().toString(),
-                2
+                binding.edtTextPhone.getText().toString()
         );
 
-        Call<Integer> callFillPersons = ApiAdapter.getApiService().modifyPerson(VMMainPage.getPersonSelected().getId(),personEdited);
-        callFillPersons.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                dialogLoading.stopLoadingDialog();
-                if (response.code() == 204){
-
-                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
-                            InfoUsers.TOAST_SUCCESS,
-                            "Person modified!","Person modified correctly!");*/
-
-                    MotionToast.Companion.darkColorToast(requireActivity(),
-                            "Person modified!","Person modified correctly!",
-                            MotionToast.TOAST_SUCCESS,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
-
-                    VMMainPage.changeFragmentSelected("FragmentListPersons");
-                }else{
-                    onFailure(call,new Throwable("Parse error"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-
-                dialogLoading.stopLoadingDialog();
-
-                /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
-                        InfoUsers.TOAST_ERROR,
-                        "Error!","The person could not be modified");*/
-
-                MotionToast.Companion.darkColorToast(requireActivity(),
-                        "Error!","he person could not be modified",
-                        MotionToast.TOAST_ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
-            }
-        });
+        AppDatabase.getDatabase(requireContext()).personDao().updatePersons(personEdited);
+        dialogLoading.stopLoadingDialog();
+        VMMainPage.changeFragmentSelected("FragmentListPersons");
 
     }
 
@@ -148,55 +102,15 @@ public class FragmentEditPerson extends Fragment {
                 0,
                 binding.edtTextName.getText().toString(),
                 binding.edtTextSurName.getText().toString(),
-                binding.edtDate.getText().toString(),
+                "",//binding.edtDate.getText().toString(),
                 "",
                 binding.edtTextAddress.getText().toString(),
-                binding.edtTextPhone.getText().toString(),
-                2
+                binding.edtTextPhone.getText().toString()
         );
 
-        Call<Integer> callFillPersons = ApiAdapter.getApiService().addPerson(personEdited);
-        callFillPersons.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                dialogLoading.stopLoadingDialog();
-                if (response.code() == 204){
-
-                        /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
-                                InfoUsers.TOAST_SUCCESS,
-                                "Person added!","Person added correctly!");*/
-
-                    MotionToast.Companion.darkColorToast(requireActivity(),
-                            "Person added!","Person added correctly!",
-                            MotionToast.TOAST_SUCCESS,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
-
-                    VMMainPage.changeFragmentSelected("FragmentListPersons");
-                }else{
-                    onFailure(call,new Throwable("Parse error"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-
-                dialogLoading.stopLoadingDialog();
-
-                    /*InfoUsers.showMessageDarkColorToast(getActivity(), getContext(),
-                            InfoUsers.TOAST_ERROR,
-                            "Error!","The person could not be added");*/
-
-                MotionToast.Companion.darkColorToast(requireActivity(),
-                        "Error!","The person could not be added",
-                        MotionToast.TOAST_ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular));
-
-            }
-        });
+        AppDatabase.getDatabase(requireContext()).personDao().insertPersons(personEdited);
+        dialogLoading.stopLoadingDialog();
+        VMMainPage.changeFragmentSelected("FragmentListPersons");
 
     }
 
