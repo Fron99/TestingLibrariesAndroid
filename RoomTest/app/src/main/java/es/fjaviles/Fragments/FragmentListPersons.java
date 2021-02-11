@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-import es.fjaviles.Adapters.CustomAdapter;
+import java.util.Arrays;
+
+import es.fjaviles.Adapters.CusAdapOptionsFilter;
+import es.fjaviles.Adapters.CusAdapPersons;
 import es.fjaviles.Dao.AppDatabase;
 import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.R;
@@ -27,8 +30,8 @@ public class FragmentListPersons extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton btnAddPerson;
     private DialogLoading dialogLoading;
-    private CustomAdapter adapter;
-    private RecyclerView list;
+    private CusAdapPersons adapter;
+    private RecyclerView recycledPersons, recycledOptionsFilter;
 
     public FragmentListPersons() {
 
@@ -58,7 +61,8 @@ public class FragmentListPersons extends Fragment {
 
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
 
-        list = view.findViewById(R.id.recycledView);
+        recycledPersons = view.findViewById(R.id.recycledPersons);
+        recycledOptionsFilter = view.findViewById(R.id.recycledOptionsFilter);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         btnAddPerson = view.findViewById(R.id.fab);
 
@@ -67,18 +71,22 @@ public class FragmentListPersons extends Fragment {
 
         refreshPersons();
 
-        adapter = new CustomAdapter(VMMainPage.getPersons());
+        adapter = new CusAdapPersons(VMMainPage.getPersons());
         adapter.setOnItemClickListener(position -> {
             VMMainPage.setPersonSelected(VMMainPage.getPersons().get(position));
             VMMainPage.changeFragmentSelected("FragmentDetailsPersons");
         });
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        list.setLayoutManager(layoutManager);
-        list.setAdapter(adapter);
-
+        recycledPersons.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycledPersons.setAdapter(adapter);
 
         btnAddPerson.setOnClickListener(v -> VMMainPage.changeFragmentSelected("FragmentCreatePerson"));
+
+        ArrayList<String> optionsFilter = new ArrayList<>(Arrays.asList("Nombre", "Apellidos", "Edad","Nombre", "Apellidos", "Edad","Nombre", "Apellidos", "Edad"));
+        CusAdapOptionsFilter adapOptionsFilter = new CusAdapOptionsFilter(optionsFilter);
+
+        recycledOptionsFilter.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        recycledOptionsFilter.setAdapter(adapOptionsFilter);
 
         swipeRefreshLayout.setOnRefreshListener(this::refreshPersons);
 

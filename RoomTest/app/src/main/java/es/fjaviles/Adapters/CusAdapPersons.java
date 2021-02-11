@@ -15,7 +15,7 @@ import java.util.Random;
 import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.R;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHolder> {
 
     private ArrayList<Person> persons;
     private OnItemClickListener mListener;
@@ -82,7 +82,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     }
 
-    public CustomAdapter(ArrayList<Person> dataSet) {
+    public CusAdapPersons(ArrayList<Person> dataSet) {
         persons = dataSet;
     }
 

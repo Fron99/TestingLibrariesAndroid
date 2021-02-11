@@ -17,4 +17,5 @@
     <string name="birthdate">Birthdate</string>
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
+    <string name="optionfilter">OptionFilter</string>
 </resources>
