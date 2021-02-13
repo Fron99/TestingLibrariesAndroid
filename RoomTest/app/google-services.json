@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "875424149539",
+    "project_id": "crudroom",
+    "storage_bucket": "crudroom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875424149539:android:642fd712dacf5647b20196",
+        "android_client_info": {
+          "package_name": "es.fjaviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875424149539-7u70gp5njda82rlghvfgrlp3ln71h5s2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxUHVBe-MrZJJoXwFkAAXQpgRxVX_-07U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875424149539-7u70gp5njda82rlghvfgrlp3ln71h5s2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

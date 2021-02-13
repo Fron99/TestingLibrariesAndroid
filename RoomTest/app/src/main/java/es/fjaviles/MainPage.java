@@ -1,10 +1,16 @@
 package es.fjaviles;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.SearchView;
+import java.util.ArrayList;
 import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.Fragments.FragmentDetailsPersons;
 import es.fjaviles.Fragments.FragmentEditPerson;
@@ -15,7 +21,6 @@ import es.fjaviles.ViewModels.ViewModelMainPage;
 public class MainPage extends AppCompatActivity {
 
     private ViewModelMainPage VMMainPage;
-    private DialogLoading dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
 
-                switch (s){
+                switch (s) {
 
                     case "FragmentListPersons":
                         getSupportFragmentManager().popBackStack("FragmentDetailsPersons", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -71,10 +76,46 @@ public class MainPage extends AppCompatActivity {
         };
 
 
-        VMMainPage.getFragmentSelected().observe(this,observer);
+        VMMainPage.getFragmentSelected().observe(this, observer);
 
         VMMainPage.changeFragmentSelected("FragmentListPersons");
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Introduce su nombre");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                ArrayList<Person> persons = new ArrayList<>(VMMainPage.getPersons());
+                ArrayList<Person> personsSearch = new ArrayList<>();
+
+                for (Person person : persons) {
+                    if (person.getName().contains(newText)) {
+                        personsSearch.add(person);
+                    }
+                }
+
+                VMMainPage.addPersons(personsSearch);
+
+                return true;
+            }
+        });
+
+        return true;
+    }
+
 
 }
