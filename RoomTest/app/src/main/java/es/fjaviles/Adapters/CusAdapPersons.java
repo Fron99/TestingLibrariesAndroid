@@ -3,6 +3,8 @@ package es.fjaviles.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +17,10 @@ import java.util.Random;
 import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.R;
 
-public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHolder> {
+public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHolder> implements Filterable {
 
     private ArrayList<Person> persons;
+    private ArrayList<Person> personsFilter;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener{
@@ -83,7 +86,8 @@ public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHold
     }
 
     public CusAdapPersons(ArrayList<Person> dataSet) {
-        persons = dataSet;
+        personsFilter = dataSet;
+        persons = new ArrayList<>(dataSet);
     }
 
     @NonNull
@@ -116,14 +120,14 @@ public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHold
         }
 
         viewHolder.setImgViewPerson(id);
-        viewHolder.setTxtViewNameAndSurname(persons.get(position).getName()+" "+ persons.get(position).getSurname());
-        viewHolder.setTxtViewTelephone(persons.get(position).getTelephone());
+        viewHolder.setTxtViewNameAndSurname(personsFilter.get(position).getName()+" "+ persons.get(position).getSurname());
+        viewHolder.setTxtViewTelephone(personsFilter.get(position).getTelephone());
         //viewHolder.setTxtViewBirthdate(persons.get(position).getFechaNacimiento().split("T")[0]);
     }
 
     @Override
     public int getItemCount() {
-        return persons.size();
+        return personsFilter.size();
     }
 
     public void addPersons(ArrayList<Person> persons){
@@ -134,5 +138,39 @@ public class CusAdapPersons extends RecyclerView.Adapter<CusAdapPersons.ViewHold
     public void addPerson(Person persons){
         this.persons.add(persons);
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Person> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(persons);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Person item : persons) {
+                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            personsFilter.clear();
+            personsFilter.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 }

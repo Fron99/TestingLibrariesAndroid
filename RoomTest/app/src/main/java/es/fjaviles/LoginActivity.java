@@ -45,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (aBoolean){
                     Intent intentToMainPage = new Intent(getApplicationContext(), MainPage.class);
+                    //intentToMainPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //Es correcto?
+                    finish();
                     startActivity(intentToMainPage);
                 }
 

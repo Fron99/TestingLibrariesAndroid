@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +17,6 @@ import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.Fragments.FragmentDetailsPersons;
 import es.fjaviles.Fragments.FragmentEditPerson;
 import es.fjaviles.Fragments.FragmentListPersons;
-import es.fjaviles.Utils.DialogLoading;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 
 public class MainPage extends AppCompatActivity {
@@ -117,5 +118,17 @@ public class MainPage extends AppCompatActivity {
         return true;
     }
 
+
+
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Saldras de la aplicación")
+                .setMessage("¿Estas seguro que desea salir?")
+                .setPositiveButton("Si", (dialog, which) -> finish())
+                .setNegativeButton("No", null)
+                .show();
+    }
 
 }

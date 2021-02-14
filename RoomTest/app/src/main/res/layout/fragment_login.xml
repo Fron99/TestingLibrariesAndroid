@@ -4,44 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/txtViewEmail"
-        android:layout_width="104dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/email"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtTextEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtViewPassword"
-        android:layout_width="106dp"
-        android:layout_height="30dp"
-        android:text="@string/password"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtTextPassword"
-        app:layout_constraintEnd_toEndOf="@+id/edtTextEmail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edtTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
-
     <EditText
         android:id="@+id/edtTextEmail"
         android:layout_width="316dp"
         android:layout_height="53dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtViewPassword"
-        app:layout_constraintEnd_toEndOf="@+id/txtViewEmail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtViewEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
-        tools:ignore="TextFields" />
+        app:layout_constraintBottom_toTopOf="@+id/edtTextPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextFields"
+        android:hint="@string/email"/>
 
     <EditText
         android:id="@+id/edtTextPassword"
@@ -51,15 +27,16 @@
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-        app:layout_constraintEnd_toEndOf="@+id/txtViewPassword"
+        app:layout_constraintEnd_toEndOf="@+id/edtTextEmail"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtViewPassword"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewPassword" />
+        app:layout_constraintStart_toStartOf="@+id/edtTextEmail"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextEmail"
+        android:hint="@string/password"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="316dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="@string/login"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="@+id/edtTextPassword"
@@ -70,7 +47,7 @@
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="260dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"

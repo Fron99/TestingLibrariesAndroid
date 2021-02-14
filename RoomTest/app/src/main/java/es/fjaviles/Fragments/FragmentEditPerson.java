@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
@@ -14,12 +15,6 @@ import es.fjaviles.Dao.Model.Person;
 import es.fjaviles.Utils.DialogLoading;
 import es.fjaviles.ViewModels.ViewModelMainPage;
 import es.fjaviles.databinding.FragmentEditPersonBinding;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentEditPerson#newInstance} factory method to
- * create an instance of this fragment.
- */
 
 public class FragmentEditPerson extends Fragment {
 
@@ -55,6 +50,9 @@ public class FragmentEditPerson extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        AppCompatActivity app = (AppCompatActivity) getActivity();
+        app.getSupportActionBar().hide();
 
         VMMainPage = new ViewModelProvider(requireActivity()).get(ViewModelMainPage.class);
         dialogLoading = new DialogLoading(requireActivity());
