@@ -76,12 +76,11 @@ public class MainPage extends AppCompatActivity {
             }
         };
 
-
         VMMainPage.getFragmentSelected().observe(this, observer);
 
         VMMainPage.changeFragmentSelected("FragmentListPersons");
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,7 +88,7 @@ public class MainPage extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint("Introduce su nombre");
+        searchView.setQueryHint("Buscar...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -99,26 +98,13 @@ public class MainPage extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                ArrayList<Person> persons = new ArrayList<>(VMMainPage.getPersons());
-                ArrayList<Person> personsSearch = new ArrayList<>();
-
-                for (Person person : persons) {
-                    if (person.getName().contains(newText)) {
-                        personsSearch.add(person);
-                    }
-                }
-
-                VMMainPage.addPersons(personsSearch);
-
+                VMMainPage.setTxtToSearch(newText);
                 return true;
             }
         });
 
         return true;
     }
-
-
 
 
     @Override

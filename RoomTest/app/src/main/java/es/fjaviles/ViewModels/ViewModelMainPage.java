@@ -13,15 +13,18 @@ public class ViewModelMainPage extends ViewModel {
     private MutableLiveData<ArrayList<Person>> persons;
     private Person personSelected;
     private MutableLiveData<String> fragmentSelected;
+    private MutableLiveData<String> txtToSearch;
 
     public ViewModelMainPage(){
         this.persons = new MutableLiveData<>(new ArrayList<>());
         this.fragmentSelected = new MutableLiveData<>();
+        this.txtToSearch = new MutableLiveData<>();
     }
 
     public ViewModelMainPage(ArrayList<Person> persons){
         this.persons = new MutableLiveData<>(persons);
         this.fragmentSelected = new MutableLiveData<>();
+        this.txtToSearch = new MutableLiveData<>();
     }
 
     public void addPerson(Person person){
@@ -88,6 +91,27 @@ public class ViewModelMainPage extends ViewModel {
 
     public Person getPersonSelected(){
         return this.personSelected;
+    }
+
+    public LiveData<String> getTxtToSearch(){
+        if (txtToSearch == null){
+            txtToSearch = new MutableLiveData<>();
+        }
+        return txtToSearch;
+    }
+
+    public String getTxtToSearchValue(){
+        if (txtToSearch == null){
+            txtToSearch = new MutableLiveData<>();
+        }
+        return txtToSearch.getValue();
+    }
+
+    public void setTxtToSearch(String value){
+        if (txtToSearch == null){
+            txtToSearch = new MutableLiveData<>();
+        }
+        txtToSearch.setValue(value);
     }
 
 }

@@ -107,6 +107,12 @@ public class FragmentListPersons extends Fragment {
 
         VMMainPage.getLiveDataPersons().observe(requireActivity(),observerForAdapter);
 
+        Observer<String> observerForTextToSearch = text -> {
+            adapter.getFilter().filter(text);
+        };
+
+        VMMainPage.getTxtToSearch().observe(requireActivity(),observerForTextToSearch);
+
     }
 
     private void refreshPersons(){
